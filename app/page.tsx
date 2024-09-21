@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Hero from '@/components/Hero';
 import HowWeWork from '@/components/HowWeWork';
@@ -7,7 +6,7 @@ import Contact from '@/components/Contact';
 import QuantumIndustrySolutions from '@/components/CreativeProjectsShowcase';
 
 // Dynamically import components for better performance
-const CreativeProjectsShowcase = dynamic(() => import('@/components/CreativeProjectsShowcase'), {
+const DynamicCreativeProjectsShowcase = dynamic(() => import('@/components/CreativeProjectsShowcase'), {
   loading: () => <p>Loading projects...</p>
 });
 
@@ -18,6 +17,7 @@ export default function Home() {
       <HowWeWork />
       <Services id="services" />
       <QuantumIndustrySolutions />
+      <DynamicCreativeProjectsShowcase />
       <Contact id="contact" />
     </main>
   );

@@ -143,7 +143,7 @@ export default function QuantumContact({ id }: QuantumContactProps) {
           >
             <AtomIcon className="w-12 h-12 text-primary mx-auto mb-4" />
             <h2 className={`text-3xl font-extrabold text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-4`}>Quantum Contact</h2>
-            <p className={`mt-2 text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-6`}>Ready to elevate your business to quantum levels? Let's connect!</p>
+            <p className={`mt-2 text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-6`}>Ready to elevate your business to quantum levels? Let&apos;s connect!</p>
           </motion.div>
           
           {!isSubmitted ? (
@@ -251,7 +251,7 @@ export default function QuantumContact({ id }: QuantumContactProps) {
             >
               <Sparkles className="w-16 h-16 text-primary mx-auto mb-4" />
               <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} mb-2`}>Quantum Transmission Successful!</h3>
-              <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Your message has been received across the quantum realm. We'll respond faster than entangled particles!</p>
+              <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Your message has been received across the quantum realm. We&apos;ll respond faster than entangled particles!</p>
             </motion.div>
           )}
         </div>

@@ -6,10 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['your-image-domain.com'],
   },
-  experimental: {
-    optimizeFonts: true,
-    optimizeImages: true,
-  },
+  // Remove the experimental section
 }
 
 export default nextConfig

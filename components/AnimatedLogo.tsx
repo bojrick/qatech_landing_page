@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
+// import { useTheme } from 'next-themes';
 
 const AnimatedLogo: React.FC = () => {
-  const { theme } = useTheme();
+  // const { resolvedTheme } = useTheme();
+
+  // Use resolvedTheme instead of theme
+  // const fillColor = resolvedTheme === 'dark' ? '#ffffff' : '#000000';
 
   return (
     <motion.div

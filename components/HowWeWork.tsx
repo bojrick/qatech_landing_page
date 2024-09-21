@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Brain, Database, BarChart3, ClipboardList, Rocket } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
@@ -44,51 +44,35 @@ const processSteps = [
 ]
 
 const ProcessStep: React.FC<{
-  step: {
-    icon: React.ElementType;
-    title: string;
-    description: string;
-    color: string;
-    bgColor: string;
-  };
+  step: typeof processSteps[0];
   index: number;
-  isHovered: boolean;
-  setHoveredStep: (index: number | null) => void;
-}> = ({ step, index, isHovered, setHoveredStep }) => {
-  const isEven = index % 2 === 0;
-  const textAlign = isEven ? 'text-right' : 'text-left';
-  const iconPosition = isEven ? '-right-8' : '-left-8';
-  const contentPadding = isEven ? 'pr-10' : 'pl-10';
+  onHover: (isHovered: boolean) => void;
+}> = ({ step, index, onHover }) => {
+  const { resolvedTheme } = useTheme()
 
   return (
-    <motion.div 
-      className={`flex ${isEven ? 'flex-row-reverse' : 'flex-row'} items-center gap-8 mb-16`}
-      initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onHoverStart={() => setHoveredStep(index)}
-      onHoverEnd={() => setHoveredStep(null)}
+    <motion.div
+      className={`relative p-6 rounded-lg ${
+        resolvedTheme === 'dark' ? 'bg-gray-800' : step.bgColor
+      } transition-all duration-300`}
+      whileHover={{ scale: 1.05 }}
+      onHoverStart={() => onHover(true)}
+      onHoverEnd={() => onHover(false)}
     >
-      <motion.div 
-        className={`flex-grow ${step.bgColor} dark:bg-gray-800 rounded-lg shadow-lg p-6 relative ${textAlign}`}
-        whileHover={{ scale: 1.05 }}
-        transition={{ type: "spring", stiffness: 300, damping: 10 }}
-      >
-        <div className={`absolute ${iconPosition} top-1/2 transform -translate-y-1/2 w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center`}>
-          <step.icon className="w-8 h-8 text-white" />
-        </div>
-        <h3 className={`text-2xl font-semibold mb-2 ${contentPadding} text-foreground`}>
-          <span className={`${isEven ? 'ml-2' : 'mr-2'} text-gray-500`}>Step {index + 1}:</span>
-          {step.title}
-        </h3>
-        <p className={`text-muted-foreground ${contentPadding}`}>{step.description}</p>
-      </motion.div>
+      <div className={`absolute ${index % 2 === 0 ? '-right-8' : '-left-8'} top-1/2 transform -translate-y-1/2 w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center`}>
+        <step.icon className="w-8 h-8 text-white" />
+      </div>
+      <h3 className={`text-2xl font-semibold mb-2 ${index % 2 === 0 ? 'pl-10' : 'pr-10'} text-foreground`}>
+        <span className={`${index % 2 === 0 ? 'ml-2' : 'mr-2'} text-gray-500`}>Step {index + 1}:</span>
+        {step.title}
+      </h3>
+      <p className={`text-muted-foreground ${index % 2 === 0 ? 'pl-10' : 'pr-10'}`}>{step.description}</p>
     </motion.div>
   )
 }
 
 const BackgroundAnimation: React.FC<{ color: string; isDark: boolean }> = ({ color, isDark }) => {
-  const [connections, setConnections] = useState<Array<{x1: number; y1: number; x2: number; y2: number; progress: number}>>([])
+  const [connections, setConnections] = useState<Array<{x1: number; y1: number; x2: number; y2: number; progress: number}>>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -159,7 +143,7 @@ const BackgroundAnimation: React.FC<{ color: string; isDark: boolean }> = ({ col
 
 export default function QuantumProcess() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null)
-  const { theme, resolvedTheme } = useTheme()
+  const { resolvedTheme } = useTheme()
 
   const isDark = resolvedTheme === 'dark'
 
@@ -185,8 +169,9 @@ export default function QuantumProcess() {
               key={index}
               step={step}
               index={index}
-              isHovered={hoveredStep === index}
-              setHoveredStep={setHoveredStep}
+              onHover={(isHovered: boolean) => {
+                setHoveredStep(isHovered ? index : null);
+              }}
             />
           ))}
         </div>

@@ -139,66 +139,77 @@ const ProjectCard: React.FC<{
   )
 }
 
+type RepeatType = "loop" | "reverse" | "mirror";
+
+interface AnimationVariant {
+  backgroundImage: string[];
+  backgroundSize?: string[];
+  transition: {
+    duration: number;
+    repeat: number;
+    repeatType: RepeatType;
+  };
+}
+
+interface AnimationVariants {
+  [key: string]: AnimationVariant;
+}
+
 const BackgroundAnimation: React.FC<{
   industry: typeof industries[0];
 }> = ({ industry }) => {
   const { theme } = useTheme()
   const isDark = theme === 'dark'
 
-  const variants = {
+  const variants: AnimationVariants = {
     automobile: {
-      animate: {
-        backgroundImage: [
-          `radial-gradient(circle at 20% 20%, ${isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.1)'} 0%, ${isDark ? 'rgba(37,99,235,0.1)' : 'rgba(37,99,235,0.05)'} 25%, rgba(0,0,0,0) 50%)`,
-          `radial-gradient(circle at 80% 80%, ${isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.1)'} 0%, ${isDark ? 'rgba(37,99,235,0.1)' : 'rgba(37,99,235,0.05)'} 25%, rgba(0,0,0,0) 50%)`
-        ],
-        transition: { duration: 10, repeat: Infinity, repeatType: 'reverse' }
-      }
+      backgroundImage: [
+        `radial-gradient(circle at 20% 20%, ${isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.1)'} 0%, ${isDark ? 'rgba(37,99,235,0.1)' : 'rgba(37,99,235,0.05)'} 25%, rgba(0,0,0,0) 50%)`,
+        `radial-gradient(circle at 80% 80%, ${isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.1)'} 0%, ${isDark ? 'rgba(37,99,235,0.1)' : 'rgba(37,99,235,0.05)'} 25%, rgba(0,0,0,0) 50%)`
+      ],
+      transition: { duration: 10, repeat: Infinity, repeatType: "reverse" }
     },
     energy: {
-      animate: {
-        backgroundImage: [
-          `linear-gradient(45deg, ${isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.1)'} 0%, ${isDark ? 'rgba(202,138,4,0.1)' : 'rgba(202,138,4,0.05)'} 50%, rgba(0,0,0,0) 100%)`,
-          `linear-gradient(225deg, ${isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.1)'} 0%, ${isDark ? 'rgba(202,138,4,0.1)' : 'rgba(202,138,4,0.05)'} 50%, rgba(0,0,0,0) 100%)`
-        ],
-        transition: { duration: 8, repeat: Infinity, repeatType: 'reverse' }
-      }
+      backgroundImage: [
+        `linear-gradient(45deg, ${isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.1)'} 0%, ${isDark ? 'rgba(202,138,4,0.1)' : 'rgba(202,138,4,0.05)'} 50%, rgba(0,0,0,0) 100%)`,
+        `linear-gradient(225deg, ${isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.1)'} 0%, ${isDark ? 'rgba(202,138,4,0.1)' : 'rgba(202,138,4,0.05)'} 50%, rgba(0,0,0,0) 100%)`
+      ],
+      transition: { duration: 8, repeat: Infinity, repeatType: "reverse" }
     },
     infrastructure: {
-      animate: {
-        backgroundImage: [
-          `linear-gradient(0deg, ${isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.1)'} 0%, ${isDark ? 'rgba(22,163,74,0.1)' : 'rgba(22,163,74,0.05)'} 50%, rgba(0,0,0,0) 100%)`,
-          `linear-gradient(180deg, ${isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.1)'} 0%, ${isDark ? 'rgba(22,163,74,0.1)' : 'rgba(22,163,74,0.05)'} 50%, rgba(0,0,0,0) 100%)`
-        ],
-        transition: { duration: 6, repeat: Infinity, repeatType: 'reverse' }
-      }
+      backgroundImage: [
+        `linear-gradient(0deg, ${isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.1)'} 0%, ${isDark ? 'rgba(22,163,74,0.1)' : 'rgba(22,163,74,0.05)'} 50%, rgba(0,0,0,0) 100%)`,
+        `linear-gradient(180deg, ${isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.1)'} 0%, ${isDark ? 'rgba(22,163,74,0.1)' : 'rgba(22,163,74,0.05)'} 50%, rgba(0,0,0,0) 100%)`
+      ],
+      transition: { duration: 6, repeat: Infinity, repeatType: "reverse" }
     },
     exports: {
-      animate: {
-        backgroundImage: [
-          `radial-gradient(circle at 10% 10%, ${isDark ? 'rgba(168,85,247,0.15)' : 'rgba(168,85,247,0.1)'} 0%, ${isDark ? 'rgba(168,85,247,0.1)' : 'rgba(168,85,247,0.05)'} 25%, rgba(0,0,0,0) 50%)`,
-          `radial-gradient(circle at 90% 90%, ${isDark ? 'rgba(168,85,247,0.15)' : 'rgba(168,85,247,0.1)'} 0%, ${isDark ? 'rgba(168,85,247,0.1)' : 'rgba(168,85,247,0.05)'} 25%, rgba(0,0,0,0) 50%)`
-        ],
-        transition: { duration: 12, repeat: Infinity, repeatType: 'reverse' }
-      }
+      backgroundImage: [
+        `radial-gradient(circle at 10% 10%, ${isDark ? 'rgba(168,85,247,0.15)' : 'rgba(168,85,247,0.1)'} 0%, ${isDark ? 'rgba(168,85,247,0.1)' : 'rgba(168,85,247,0.05)'} 25%, rgba(0,0,0,0) 50%)`,
+        `radial-gradient(circle at 90% 90%, ${isDark ? 'rgba(168,85,247,0.15)' : 'rgba(168,85,247,0.1)'} 0%, ${isDark ? 'rgba(168,85,247,0.1)' : 'rgba(168,85,247,0.05)'} 25%, rgba(0,0,0,0) 50%)`
+      ],
+      transition: { duration: 12, repeat: Infinity, repeatType: "reverse" }
     },
     technology: {
-      animate: {
-        backgroundImage: [
-          `repeating-linear-gradient(0deg, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 0px, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 1px, transparent 1px, transparent 20px)`,
-          `repeating-linear-gradient(0deg, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 0px, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 1px, transparent 1px, transparent 20px)`
-        ],
-        backgroundSize: ['100% 20px', '100% 40px'],
-        transition: { duration: 5, repeat: Infinity, repeatType: 'reverse' }
-      }
+      backgroundImage: [
+        `repeating-linear-gradient(0deg, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 0px, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 1px, transparent 1px, transparent 20px)`,
+        `repeating-linear-gradient(0deg, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 0px, ${isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)'} 1px, transparent 1px, transparent 20px)`
+      ],
+      backgroundSize: ['100% 20px', '100% 40px'],
+      transition: { duration: 5, repeat: Infinity, repeatType: "reverse" }
     }
   }
+
+  const currentVariant = variants[industry.name.toLowerCase()]
 
   return (
     <motion.div
       className="absolute inset-0 opacity-30 z-0"
-      variants={variants[industry.name.toLowerCase() as keyof typeof variants]}
-      animate="animate"
+      animate={{
+        backgroundImage: currentVariant.backgroundImage,
+        backgroundSize: currentVariant.backgroundSize,
+        transition: currentVariant.transition
+      }}
     />
   )
 }
